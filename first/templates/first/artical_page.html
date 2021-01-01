@@ -1,0 +1,20 @@
+{% extends 'first/base.html' %} {%block content %}
+<div class="container">
+  <h1>{{post.title}}</h1>
+  <p><img src="{{post.image.url}}" width="300" /></p>
+  <p>{{post.body}}</p>
+  <p>{{post.author}}</p>
+
+  {% for comment in comments %}
+  <strong><h4>{{comment.author}}:</h4></strong>{{comment.author}}
+  <p>{{comment.body}}</p>
+
+  {% endfor %}
+</div>
+
+<form action="" method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <p><button type="submit">send</button></p>
+</form>
+
+{% endblock%}

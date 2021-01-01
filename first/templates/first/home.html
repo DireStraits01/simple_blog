@@ -1,0 +1,27 @@
+{% extends 'first/base.html' %} {%block content %}
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for post in posts %}
+  <div class="col">
+    <div class="card" style="width: 18rem">
+      <img
+        src="{{post.image.url}}"
+        class="img-thumbnail"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h1>
+          <a href="{% url 'artical_page' post.id %}" class="card-link"
+            >{{post.title}}</a
+          >
+        </h1>
+        <h5 class="card-text">{{post.author}}</h5>
+        <p>{{post.date_create}}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
