@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 
+def profile(request):
+    return render(request, 'first/profile.html')
+
+
 def home(request):
     posts = Article.objects.filter(avalaible=True)
     context = {'posts': posts}
