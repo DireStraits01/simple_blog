@@ -11,17 +11,20 @@ def home(request):
     return render(request, 'first/home.html', context)
 
 
+@login_required
 def add_article(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            form = ArticleForm()
 
+            form = ArticleForm()
+            context = {'form': form}
+            return render(request, 'first/add_article.html', context)
     else:
         form = ArticleForm()
-    context = {'form': form}
-    return render(request, 'first/add_article.html', context)
+        context = {'form': form}
+        return render(request, 'first/add_article.html', context)
 
 
 def artical_page(request, id):
