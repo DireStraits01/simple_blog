@@ -32,13 +32,14 @@ def artical_page(request, id):
     comments = post.comments.filter()
 
     if request.method == "POST":
-        if request.user.is_authenticated:
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                new_comment = form.save(commit=False)
-                new_comment.post = post
-                new_comment.save()
-                form = CommentForm()
+        # if request.user.is_authenticated:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.save()
+            form = CommentForm()
 
     else:
         form = CommentForm()

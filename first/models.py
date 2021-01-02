@@ -27,8 +27,8 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Article, on_delete=models.CASCADE, verbose_name="comments", related_name='comments')
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name='author_comm', blank=True, null=True)
-    body = models.CharField(max_length=255, verbose_name="your comment")
+        User, on_delete=models.CASCADE, verbose_name='author_comm')
+    body = models.TextField(max_length=400, verbose_name="your comment")
     date_post = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
 
