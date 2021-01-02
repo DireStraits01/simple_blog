@@ -22,7 +22,9 @@
                 >{{post.title}}</a
               >
             </h5>
-            <p class="card-text">{{post.body|truncatewords:15|linebreaks}}</p>
+            <p class="card-text">
+              {{post.body|safe|truncatewords:15|linebreaks}}
+            </p>
             <p class="card-text">
               <small class="text-muted">{{post.date_create}}</small>
             </p>

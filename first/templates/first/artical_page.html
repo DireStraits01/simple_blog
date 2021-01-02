@@ -7,7 +7,7 @@
   {% else %}
   <p>NO IMAGE</p>
   {% endif %}
-  <p>{{post.body}}</p>
+  <p>{{post.body|safe}}</p>
   <p>{{post.author}}</p>
 
   {% for comment in comments %}
