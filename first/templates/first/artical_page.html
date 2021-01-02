@@ -11,7 +11,10 @@
   <p>{{post.author}}</p>
 
   {% for comment in comments %}
-  <strong><h4>{{comment.author}}:</h4></strong>{{comment.author}}
+  <p>{{comment.date_post}}</p>
+  <strong>
+    <h4>{{comment.author}}:</h4>
+  </strong>
   <p>{{comment.body}}</p>
 
   {% endfor %}
