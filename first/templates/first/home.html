@@ -1,32 +1,58 @@
 {% extends 'first/base.html' %} {%block content %}
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for post in posts %}
-  <div class="col">
-    <div class="card" style="width: 18rem">
-      {% if post.image %}
-      <img
-        src="{{post.image.url}}"
-        class="img-thumbnail"
-        class="card-img-top"
-        alt="..."
-      />
-      {% else %}
-      <p>NO IMAGE</p>
-      {% endif %}
-      <div class="card-body">
-        <h1>
-          <a href="{% url 'artical_page' post.id %}" class="card-link"
-            >{{post.title}}</a
-          >
-        </h1>
-        <p>{{post.body|truncatewords:30|linebreaks}}</p>
-        <h5 class="card-text">{{post.author}}</h5>
-        <p>{{post.date_create}}</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      {% for post in posts %}
+      <div class="card-group mt-4">
+        <div class="card" width="100">
+          {% if post.image %}
+          <img
+            class="card-img-top"
+            src="{{post.image.url}}"
+            alt="Card image cap"
+            style="width: 10rem"
+          />
+          {% else %}
+          <p>NO IMAGE</p>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{% url 'artical_page' post.id %}" class="card-link"
+                >{{post.title}}</a
+              >
+            </h5>
+            <p class="card-text">{{post.body|truncatewords:30|linebreaks}}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{post.date_create}}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-sm-4">
+      <p class="h3 mt-4">Топ статей</p>
+      <div class="card mt-4" style="width: 18rem">
+        <img class="card-img-top" src="..." alt="Card image cap" />
+        <div class="card-body">
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+        </div>
+      </div>
+
+      <div class="card mt-4" style="width: 18rem">
+        <img class="card-img-top" src="..." alt="Card image cap" />
+        <div class="card-body">
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  {% endfor %}
 </div>
-
 {% endblock %}
