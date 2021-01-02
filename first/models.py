@@ -12,7 +12,8 @@ class CategoryArt(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    #body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True)
     avalaible = models.BooleanField(default=True)
