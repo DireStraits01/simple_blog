@@ -3,6 +3,7 @@ from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 
 def profile(request):
@@ -10,12 +11,16 @@ def profile(request):
 
 
 def home(request):
-    posts = Article.objects.all()
+    search_query = request.GET.get('search', '')
+    if search_query:
+        posts = Article.objects.filter(
+            Q(title__icontains=search_query) | Q(body__icontains=search_query))
+    else:
+        posts = Article.objects.all()
     context = {'posts': posts}
     return render(request, 'first/home.html', context)
 
 
-@login_required
 def add_article(request):
     if request.method == "POST":
         form = ArticleForm(request.POST, request.FILES)
@@ -24,12 +29,12 @@ def add_article(request):
             new_post.author = request.user
             new_post.save()
             form = ArticleForm()
-            context = {'form': form}
-            return render(request, 'first/add_article.html', context)
+            #context = {'form': form}
+            # return render(request, 'first/add_article.html', context)
     else:
         form = ArticleForm()
-        context = {'form': form}
-        return render(request, 'first/add_article.html', context)
+    context = {'form': form}
+    return render(request, 'first/add_article.html', context)
 
 
 def artical_page(request, id):

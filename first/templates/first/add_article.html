@@ -1,8 +1,18 @@
 {% extends 'first/base.html' %} {%block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}{{form.media}}{{form.as_p}}
-  <p><button type="submit">send</button></p>
-</form>
-
+<div>
+  {% if request.user.is_authenticated%}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}{{form.media}}{{form.as_p}}
+    <p><button type="submit">send</button></p>
+  </form>
+  {% else %}
+  <p class="p-3 mb-2 bg-danger text-white">only for registered users</p>
+  {% endif %}
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
 {% endblock %}
