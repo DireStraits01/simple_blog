@@ -10,7 +10,7 @@ def profile(request):
 
 
 def home(request):
-    posts = Article.objects.filter(avalaible=True)
+    posts = Article.objects.all()
     context = {'posts': posts}
     return render(request, 'first/home.html', context)
 
@@ -20,15 +20,15 @@ def add_article(request):
     if request.method == "POST":
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save
             form = ArticleForm()
-            context = {'form': form}
-            return render(request, 'first/add_article.html', context)
+
     else:
         form = ArticleForm()
-        context = {'form': form}
-        return render(request, 'first/add_article.html', context)
+    context = {'form': form}
+    return render(request, 'first/add_article.html', context)
 
 
 def artical_page(request, id):
