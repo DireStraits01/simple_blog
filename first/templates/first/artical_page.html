@@ -1,11 +1,12 @@
 {% extends 'first/base.html' %} {%block content %}
 <div class="container">
   <h1>{{post.title}}</h1>
+  <p>{{post.date_create}}</p>
 
   {% if post.image %}
   <p><img src="{{post.image.url}}" width="300" /></p>
   {% else %}
-  <p>NO IMAGE</p>
+  <p></p>
   {% endif %}
   <p>{{post.body|safe}}</p>
   <p>{{post.author}}</p>

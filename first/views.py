@@ -22,17 +22,18 @@ def add_article(request):
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
-            new_post.save
+            new_post.save()
             form = ArticleForm()
-
+            context = {'form': form}
+            return render(request, 'first/add_article.html', context)
     else:
         form = ArticleForm()
-    context = {'form': form}
-    return render(request, 'first/add_article.html', context)
+        context = {'form': form}
+        return render(request, 'first/add_article.html', context)
 
 
 def artical_page(request, id):
-    post = get_object_or_404(Article, id=id, avalaible=True)
+    post = get_object_or_404(Article, id=id)
     comments = post.comments.filter()
 
     if request.method == "POST":
