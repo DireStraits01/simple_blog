@@ -53,6 +53,7 @@
   </div>
 
   <div class="">
+    {% if user.is_authenticated%}
     <a class="navbar-brand" href="{% url 'profile' %}">
       <img
         src="https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-31-512.png"
@@ -62,5 +63,12 @@
         class="d-inline-block"
       />
     </a>
+    {% else %}
+    <form action="">
+      <input type="login" size="10" placeholder="login" />
+      <input type="password" size="10" placeholder="password" />
+      <button class="btn btn-primary" type="submit">login</button>
+    </form>
+    {% endif %}
   </div>
 </nav>

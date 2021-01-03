@@ -2,40 +2,45 @@
 
 <div class="container">
   <div class="row">
-    {% for post in posts %}
-    <div class="col-md-4">
-      <div class="card-deck mt-4">
-        <div class="card mt-4">
-          {% if post.image %}
-          <img
-            class="card-img-top"
-            src="{{post.image.url}}"
-            alt="Card image cap"
-            style="width: 10rem"
-          />
-          {% else %}
-          <p>NO IMAGE</p>
-          {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">
-              <a href="{% url 'artical_page' post.id %}" class="card-link"
-                >{{post.title}}</a
-              >
-            </h5>
-            <p class="card-text">
-              {{post.body|safe|truncatewords:15|linebreaks}}
-            </p>
-            <p class="card-text">
-              <small class="text-muted">{{post.date_create}}</small>
-            </p>
+    <div class="col-md-9">
+      <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4">
+          <div class="card-deck mt-4">
+            <div class="card mt-4">
+              {% if post.image %}
+              <img
+                class="card-img-top"
+                src="{{post.image.url}}"
+                alt="Card image cap"
+                style="width: 10rem"
+              />
+              {% else %}
+              <p>NO IMAGE</p>
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'artical_page' post.id %}" class="card-link"
+                    >{{post.title}}</a
+                  >
+                </h5>
+                <p class="card-text">
+                  {{post.body|safe|truncatewords:15|linebreaks}}
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">{{post.date_create}}</small>
+                </p>
+              </div>
+            </div>
+            <!--jhjhjhj-->
           </div>
         </div>
-        <!--jhjhjhj-->
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
+
     <!--*************************top**articles****************************-->
-    <!-- <div class="col-md-3">
+    <div class="col-md-3">
       <p class="h3 mt-4">Топ статей</p>
       <div class="card-deck mt-4">
         <div class="card mt-4">
@@ -52,21 +57,8 @@
             </p>
           </div>
         </div>
-        <div class="card mt-4">
-          <img class="card-img-top" src="..." alt="Card image cap" />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This card has supporting text below as a natural lead-in to
-              additional content.
-            </p>
-            <p class="card-text">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </p>
-          </div>
-        </div>
       </div>
-    </div>-->
+    </div>
   </div>
 </div>
 {% endblock %}
