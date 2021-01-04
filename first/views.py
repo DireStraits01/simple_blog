@@ -6,10 +6,6 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 
-def profile(request):
-    return render(request, 'first/profile.html')
-
-
 def home(request):
     search_query = request.GET.get('search', '')
     if search_query:

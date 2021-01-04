@@ -23,7 +23,8 @@ from first import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('first.urls')),
-    path('ckeditor', include('ckeditor_uploader.urls'))
+    path('ckeditor', include('ckeditor_uploader.urls')),
+    path('prof/', include('prof.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
