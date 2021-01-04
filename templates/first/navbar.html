@@ -64,14 +64,15 @@
         class="d-inline-block"
       />
     </a>
+
     {% else %}
 
     <button type="button" class="btn btn-outline-success btn-sm">
       <div class="mx-auto" style="width: 50px">login</div>
     </button>
-    <button type="button" class="btn btn-outline-info btn-sm">
+    <a href="{% url 'registration_page' %}" class="btn btn-outline-info btn-sm">
       <div class="mx-auto" style="width: 50px">register</div>
-    </button>
+    </a>
 
     {% endif %}
   </div>

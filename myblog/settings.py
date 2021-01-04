@@ -32,16 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'first.apps.FirstConfig',
-    'prof.apps.ProfConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'first.apps.FirstConfig',
+    'prof.apps.ProfConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
 ]
 
 
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'myblog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

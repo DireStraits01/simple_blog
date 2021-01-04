@@ -7,7 +7,7 @@
           <div class="card-block text-center text-while">
             <i class="fas fa-user-tie fa-7x mt-5"></i>
             <h2 class="font-wieght-bold mt-4">{{user.username}}</h2>
-            {% for group in user.groups.all %}
+            {% for group in user.groups.filter %}
             <p>{{ group }}</p>
             {% endfor %}
             <i class="far fa-edit fa-2x mb-4"></i>
