@@ -67,10 +67,14 @@
 
     {% else %}
 
-    <button type="button" class="btn btn-outline-success btn-sm">
+    <a
+      href="{% url 'login' %}"
+      type="button"
+      class="btn btn-outline-success btn-sm"
+    >
       <div class="mx-auto" style="width: 50px">login</div>
-    </button>
-    <a href="{% url 'registration_page' %}" class="btn btn-outline-info btn-sm">
+    </a>
+    <a href="#" class="btn btn-outline-info btn-sm">
       <div class="mx-auto" style="width: 50px">register</div>
     </a>
 
