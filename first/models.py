@@ -34,7 +34,7 @@ class Comment(models.Model):
     date_update = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s - %s' % (self.post, self.author)
+        return '%s - %s - %s' % (self.post, self.author, self.body)
 
 
 class Author(models.Model):

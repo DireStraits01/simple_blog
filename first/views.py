@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -24,13 +25,11 @@ def add_article(request):
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
-            form = ArticleForm()
-            #context = {'form': form}
-            # return render(request, 'first/add_article.html', context)
+            return HttpResponseRedirect('/')
     else:
         form = ArticleForm()
-    context = {'form': form}
-    return render(request, 'first/add_article.html', context)
+        context = {'form': form}
+        return render(request, 'first/add_article.html', context)
 
 
 def artical_page(request, id):
@@ -45,10 +44,10 @@ def artical_page(request, id):
             new_comment.author = request.user
             new_comment.post = post
             new_comment.save()
-            form = CommentForm()
 
+            return HttpResponseRedirect(str(id))
     else:
         form = CommentForm()
-    context = {'post': post, 'comments': comments,
-               'form': form}
-    return render(request, 'first/artical_page.html', context)
+        context = {'post': post, 'comments': comments,
+                   'form': form}
+        return render(request, 'first/artical_page.html', context)
