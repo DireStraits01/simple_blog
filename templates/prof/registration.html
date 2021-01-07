@@ -1,0 +1,53 @@
+{% extends 'first/base.html' %} {%block content %} 
+
+ <title>Sign in</title>
+  </head>
+  <body>
+    <div class="text-center mt-5">
+      <form style="max-width: 480px; margin: auto">
+        <img
+          src="https://logodix.com/logo/1713894.jpg"
+          alt=""
+          width="120"
+          height="90"
+          class="d-inline-block mt-4 mb-4"
+        />
+        <h1 class="h3 mb-3">Please sign in</h1>
+        <label class="sr-only" for="emailAdress"></label>
+        <input
+          type="email"
+          id="emailAdress"
+          class="form-control"
+          placeholder="email"
+          required
+          autofocus
+        />
+        <label for="password" class="sr-only">
+            <input
+               type="password"
+               id="password"
+               class="form-control"
+               placeholder="password"
+            />
+        </label>
+
+          <label for="password" class="sr-only">
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="confirm password"
+        />
+        </label>
+        
+        <button class="btn btn-lg btn-primary mt-3">Sign in</button>
+      </form>
+    </div>
+<br>
+<br>
+<br>
+<br>
+
+
+
+{% endblock %}
