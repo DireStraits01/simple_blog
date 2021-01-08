@@ -4,43 +4,66 @@
 
 <body>
   <div class="text-center mt-5">
-    <form style="max-width: 480px; margin: auto">
+    <form class="form_color" style="max-width: 480px; margin: auto">
       <img
-        src="https://logodix.com/logo/1713894.jpg"
+        src="https://www.pngitem.com/pimgs/m/273-2734232_event-registration-event-registration-logo-hd-png-download.png"
         alt=""
         width="120"
         height="90"
         class="d-inline-block mt-4 mb-4"
       />
-      <h1 class="h3 mb-3">Please sign in</h1>
-      <label class="sr-only" for="emailAdress"></label>
+
+      <p class="hint-text">
+        Create your account. It's free and only takes a minute.
+      </p>
+
+      <label for="login" class="sr-only"></label>
+
+      <input
+        type="text"
+        name="login"
+        placeholder="Login"
+        autofocus
+        class="form-control mt-4"
+        class="text-center"
+        required
+      />
+
+      <label class="sr-only" for="emailAdress"> </label>
       <input
         type="email"
-        id="emailAdress"
-        class="form-control"
+        name="emailAdress"
+        class="form-control mt-4"
         placeholder="email"
         required
-        autofocus
       />
-      <label for="password" class="sr-only">
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          placeholder="password"
-        />
-      </label>
 
-      <label for="password" class="sr-only">
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          placeholder="confirm password"
-        />
-      </label>
+      <label for="password" class="sr-only"> </label>
+      <input
+        type="password"
+        name="password"
+        class="form-control mt-4"
+        placeholder="password"
+        required
+      />
 
-      <button class="btn btn-lg btn-primary mt-3">Register Now</button>
+      <label for="password" class="sr-only"> </label>
+      <input
+        type="password"
+        name="password"
+        class="form-control mt-4"
+        placeholder="confirm password"
+        required
+      />
+
+      <label class="form-check-label mt-4"
+        ><input type="checkbox" required="required" /> I accept the
+        <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label
+      >
+
+      <div class="d-grid gap-2 mt-4">
+        <button class="btn btn-success" type="button">Register Now</button>
+      </div>
     </form>
   </div>
   <br />

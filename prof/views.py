@@ -7,3 +7,7 @@ def yo_profile(request):
 
 def login(request):
     return render(request, 'prof/login.html')
+
+
+def registration(request):
+    return render(request, 'prof/registration.html')
