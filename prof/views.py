@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import auth
+from django.contrib import messages
 
 
 def yo_profile(request):
@@ -8,7 +10,19 @@ def yo_profile(request):
 
 
 def login(request):
-    return render(request, 'prof/login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'invalid credentials')
+            return redirect('login')
+    else:
+        return render(request, 'prof/login.html')
 
 
 def registr(request):

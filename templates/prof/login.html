@@ -4,7 +4,8 @@
 
 <body>
   <div class="text-center mt-5">
-    <form style="max-width: 480px; margin: auto">
+    <form style="max-width: 480px; margin: auto" method="post">
+      {% csrf_token %}
       <img
         src="https://logodix.com/logo/1713894.jpg"
         alt=""
@@ -13,19 +14,19 @@
         class="d-inline-block mt-4 mb-4"
       />
       <p class="hint-text mb-3">Please sign in</p>
-      <label class="sr-only" for="emailAdress"></label>
+      <label class="sr-only" for="username"></label>
       <input
-        type="email"
-        id="emailAdress"
+        type="login"
+        name="username"
         class="form-control"
-        placeholder="email"
+        placeholder="username"
         required
         autofocus
       />
       <label for="password" class="sr-only"></label>
       <input
         type="password"
-        id="password"
+        name="password"
         class="form-control mt-2"
         placeholder="password"
       />
@@ -35,9 +36,14 @@
         </label>
       </div>
       <div class="d-grid gap-2 mt-4">
-        <button class="btn btn-primary" type="button">Sign in</button>
+        <input type="Submit" class="btn btn-primary" value="sign in" />
       </div>
     </form>
+    <div class="messages">
+      {% for message in messages %}
+      <h3>{{message}}</h3>
+      {% endfor %}
+    </div>
   </div>
   <br />
   <br />
