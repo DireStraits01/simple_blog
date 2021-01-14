@@ -9,6 +9,20 @@ def yo_profile(request):
     return render(request, 'prof/yo_profile.html')
 
 
+def registr(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.save()
+
+            return render(request, 'prof/register_done.html')
+    else:
+        user_form = UserCreationForm()
+    context = {'user_form': user_form}
+    return render(request, 'prof/registration.html', context)
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -25,15 +39,6 @@ def login(request):
         return render(request, 'prof/login.html')
 
 
-def registr(request):
-    if request.method == 'POST':
-        user_form = UserCreationForm(request.POST)
-        if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.save()
-
-            return render(request, 'prof/register_done.html')
-    else:
-        user_form = UserCreationForm()
-    context = {'user_form': user_form}
-    return render(request, 'prof/registration.html', context)
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

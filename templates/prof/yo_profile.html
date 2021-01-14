@@ -11,6 +11,11 @@
             <p>{{ group }}</p>
             {% endfor %}
             <i class="far fa-edit fa-2x mb-4"></i>
+            <div class="font-wieght-bold mt-4" class="logout">
+              <a href="{% url 'logout' %}" type="button" class="btn btn-dark">
+                logout
+              </a>
+            </div>
           </div>
         </div>
         <div class="col-sm-8 bg-white rounded-right">
