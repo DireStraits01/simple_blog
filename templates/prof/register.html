@@ -4,7 +4,13 @@
 
 <body>
   <div class="text-center mt-5">
+    <div class="messages">
+      {% for message in messages %}
+      <h3>{{message}}</h3>
+      {% endfor %}
+    </div>
     <form style="max-width: 480px; margin: auto" method="POST">
+      {% csrf_token %}
       <img
         src="https://www.pngitem.com/pimgs/m/273-2734232_event-registration-event-registration-logo-hd-png-download.png"
         alt=""
@@ -17,40 +23,40 @@
         Create your account. It's free and only takes a minute.
       </p>
 
-      <label for="login" class="sr-only"></label>
+      <label for="username" class="sr-only"></label>
 
       <input
         type="text"
-        name="login"
-        placeholder="Login"
+        name="username"
+        placeholder="username"
         autofocus
         class="form-control mt-4"
         class="text-center"
         required
       />
 
-      <label class="sr-only" for="emailAdress"> </label>
+      <label class="sr-only" for="email"> </label>
       <input
         type="email"
-        name="emailAdress"
+        name="email"
         class="form-control mt-4"
         placeholder="email"
         required
       />
 
-      <label for="password" class="sr-only"> </label>
+      <label for="password1" class="sr-only"> </label>
       <input
         type="password"
-        name="password"
+        name="password1"
         class="form-control mt-4"
         placeholder="password"
         required
       />
 
-      <label for="password" class="sr-only"> </label>
+      <label for="password2" class="sr-only"> </label>
       <input
         type="password"
-        name="password"
+        name="password2"
         class="form-control mt-4"
         placeholder="confirm password"
         required
@@ -62,10 +68,8 @@
       >
 
       <div class="d-grid gap-2 mt-4">
-        <button class="btn btn-success" type="button">Register Now</button>
+        <input type="Submit" class="btn btn-success" value="Register now" />
       </div>
-
-      {% csrf_token %} {% user_form.as_p %}
     </form>
   </div>
   <br />
