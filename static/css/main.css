@@ -17,3 +17,9 @@
 .messages {
   color: red;
 }
+
+.hidden-link {
+  color: #edebeb;
+
+  padding: 2px; /* Поля вокруг текста */
+}
