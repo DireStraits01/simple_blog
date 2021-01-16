@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
+from django.conf import settings
 
 
 def yo_profile(request):
@@ -42,8 +43,15 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
         user = auth.authenticate(username=username, password=password)
+        try:
+            remember = request.POST['remember_me']
+            if remember:
+                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+        except:
+            is_private = False
+            settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
         if user is not None:
             auth.login(request, user)
             return redirect('/')
