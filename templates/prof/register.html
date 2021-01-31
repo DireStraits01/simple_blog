@@ -1,0 +1,80 @@
+{% extends 'first/base.html' %} {%block content %}
+
+<title>Sign in</title>
+
+<body>
+  <div class="text-center mt-5">
+    <div class="messages">
+      {% for message in messages %}
+      <h3>{{message}}</h3>
+      {% endfor %}
+    </div>
+    <form style="max-width: 480px; margin: auto" method="POST">
+      {% csrf_token %}
+      <img
+        src="https://www.pngitem.com/pimgs/m/273-2734232_event-registration-event-registration-logo-hd-png-download.png"
+        alt=""
+        width="120"
+        height="90"
+        class="d-inline-block mt-4 mb-4"
+      />
+
+      <p class="hint-text">
+        Create your account. It's free and only takes a minute.
+      </p>
+
+      <label for="username" class="sr-only"></label>
+
+      <input
+        type="text"
+        name="username"
+        placeholder="username"
+        autofocus
+        class="form-control mt-4"
+        class="text-center"
+        required
+      />
+
+      <label class="sr-only" for="email"> </label>
+      <input
+        type="email"
+        name="email"
+        class="form-control mt-4"
+        placeholder="email"
+        required
+      />
+
+      <label for="password1" class="sr-only"> </label>
+      <input
+        type="password"
+        name="password1"
+        class="form-control mt-4"
+        placeholder="password"
+        required
+      />
+
+      <label for="password2" class="sr-only"> </label>
+      <input
+        type="password"
+        name="password2"
+        class="form-control mt-4"
+        placeholder="confirm password"
+        required
+      />
+
+      <label class="form-check-label mt-4"
+        ><input type="checkbox" required="required" /> I accept the
+        <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label
+      >
+
+      <div class="d-grid gap-2 mt-4">
+        <input type="Submit" class="btn btn-success" value="Register now" />
+      </div>
+    </form>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+</body>
+{% endblock %}
