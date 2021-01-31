@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'prof.apps.ProfConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'fontawesome-free',
 ]
 
 
