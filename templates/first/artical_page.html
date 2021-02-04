@@ -11,8 +11,12 @@
   <p>{{post.body|safe}}</p>
   <p>{{post.author}}</p>
 
-  {% for comment in comments %}
-  <hr />
+  <form action="" method="POST">
+    {% csrf_token %} {{post.likes}}
+    <p><button class="btn btn-success" type="submit">like</button></p>
+  </form>
+
+  <p>{% for comment in comments %}</p>
   <p>{{comment.date_post}}</p>
   <strong>
     <h4>{{comment.author}}:</h4>

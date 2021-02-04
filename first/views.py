@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 
 
 def home(request):
@@ -13,7 +14,8 @@ def home(request):
         posts = Article.objects.filter(
             Q(title__icontains=search_query) | Q(body__icontains=search_query))
     else:
-        posts = Article.objects.all()
+        posts = Article.objects.all().order_by('date_create')[::-1]
+
     context = {'posts': posts}
     return render(request, 'first/home.html', context)
 
@@ -51,3 +53,11 @@ def artical_page(request, id):
         context = {'post': post, 'comments': comments,
                    'form': form}
         return render(request, 'first/artical_page.html', context)
+
+
+def likes(request, id):
+    if request.method == 'POST':
+        post = get_object_or_404(Article, id=id)
+        post.likes += 1
+        post.save()
+    return HttpResponseRedirect(str(id))

@@ -12,13 +12,14 @@ class CategoryArt(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    #body = models.TextField()
+    # body = models.TextField()
     category = models.ForeignKey(CategoryArt, on_delete=models.CASCADE)
     body = RichTextUploadingField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
