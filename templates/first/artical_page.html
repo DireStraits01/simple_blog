@@ -25,22 +25,23 @@
                   type="submit"
                   value="{{post.id}}"
                   name="post_id">
-                Unlike
+                <i class="fas fa-thumbs-up"></i>
           </button>
 
       {% else %}
+
             <button
-                  class="btn btn-success"
+                  class="btn btn-light"
                   type="submit"
                   value="{{post.id}}"
                   name="post_id"
-          >like
+          ><i class="fas fa-thumbs-up"></i>
           </button>
          {% endif %}
       {% else %}
 
             {% endif %}
-      - {{post.total_likes}}
+      {{post.total_likes}}
 
   </form>
 
