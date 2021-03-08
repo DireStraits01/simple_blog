@@ -34,6 +34,7 @@ def add_article(request):
 
 def artical_page(request, id):
     post = get_object_or_404(Article, id=id)
+   # dom = post.likes.get(profile_id=request.user.profile.id)
     comments = post.comments.filter()
     likes = post.likes.filter()
     if request.method == "POST":
@@ -48,12 +49,24 @@ def artical_page(request, id):
             return HttpResponseRedirect(str(id))
     else:
         form = CommentForm()
+
+        liked=False
+        if  request.user.is_authenticated:
+            if post.likes.filter(id=request.user.profile.id):
+                liked=True
         context = {'post': post, 'comments': comments,
-                   'form': form, 'likes':likes}
+                   'form': form, 'likes':likes, 'liked':liked}
         return render(request, 'first/artical_page.html', context)
 
 
 def likes_post(request, pk):
-    post_for_like = get_object_or_404(Article, id=request.POST.get('post_id'))
-    post_for_like.likes.add(request.user.profile)
+    post = get_object_or_404(Article, id=request.POST.get('post_id'))
+    liked = False
+
+    if post.likes.filter(id=request.user.profile.id).exists():
+        post.likes.remove(request.user.profile)
+        liked=False
+    else:
+        post.likes.add(request.user.profile)
+        liked=True
     return HttpResponseRedirect(reverse('artical_page', args=[str(pk)]))

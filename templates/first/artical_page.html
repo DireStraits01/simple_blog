@@ -16,16 +16,32 @@
   <form
           action="{% url 'likes_post'  post.pk %}"
           method="POST">
+
     {% csrf_token %}
-    <p>
-      <button
-            class="btn btn-success"
-            type="submit"
-            value="{{post.id}}"
-            name="post_id"
-    >likes: {{post.total_likes}}
-    </button>
-    </p>
+      {% if user.is_authenticated %}
+    {% if liked %}
+            <button
+                  class="btn btn-danger"
+                  type="submit"
+                  value="{{post.id}}"
+                  name="post_id">
+                Unlike
+          </button>
+
+      {% else %}
+            <button
+                  class="btn btn-success"
+                  type="submit"
+                  value="{{post.id}}"
+                  name="post_id"
+          >like
+          </button>
+         {% endif %}
+      {% else %}
+
+            {% endif %}
+      - {{post.total_likes}}
+
   </form>
 
   <p>{% for comment in comments %}</p>
