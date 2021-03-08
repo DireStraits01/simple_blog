@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
 from django.conf import settings
-
+from .models import Profile
 
 def yo_profile(request):
     return render(request, 'prof/yo_profile.html')
@@ -31,7 +31,11 @@ def register(request):
                 User.objects.create_user(
                     username=username, email=email,
                     password=password1)
-                print('user create')
+                user = auth.authenticate(username=username, password=password1)
+                user.refresh_from_db()
+                user.save()
+                auth.login(request, user)
+                return redirect('/')
         else:
             messages.info(request, "password not confirm")
             return redirect('register')

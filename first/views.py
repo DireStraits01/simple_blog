@@ -1,12 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Article, Comment
+from .models import Article
 from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Q
-from django.urls import reverse_lazy
-from django.views.decorators.http import require_POST
-
+from django.urls import reverse
 
 def home(request):
     search_query = request.GET.get('search', '')
@@ -25,7 +23,7 @@ def add_article(request):
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
-            new_post.author = request.user
+            new_post.author = request.user.profile
             new_post.save()
             return HttpResponseRedirect('/')
     else:
@@ -37,13 +35,13 @@ def add_article(request):
 def artical_page(request, id):
     post = get_object_or_404(Article, id=id)
     comments = post.comments.filter()
-
+    likes = post.likes.filter()
     if request.method == "POST":
         # if request.user.is_authenticated:
         form = CommentForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
-            new_comment.author = request.user
+            new_comment.author = request.user.profile
             new_comment.post = post
             new_comment.save()
 
@@ -51,13 +49,11 @@ def artical_page(request, id):
     else:
         form = CommentForm()
         context = {'post': post, 'comments': comments,
-                   'form': form}
+                   'form': form, 'likes':likes}
         return render(request, 'first/artical_page.html', context)
 
 
-def likes(request, id):
-    if request.method == 'POST':
-        post = get_object_or_404(Article, id=id)
-        post.likes += 1
-        post.save()
-    return HttpResponseRedirect(str(id))
+def likes_post(request, pk):
+    post_for_like = get_object_or_404(Article, id=request.POST.get('post_id'))
+    post_for_like.likes.add(request.user.profile)
+    return HttpResponseRedirect(reverse('artical_page', args=[str(pk)]))
