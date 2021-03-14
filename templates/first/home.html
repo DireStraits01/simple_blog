@@ -1,28 +1,35 @@
-{% extends 'first/base.html' %} {%block content %}
-
+{% extends 'first/base.html' %} {%block content %} {% load static %}
 <div class="container" class="home">
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-10">
       <div class="row justify-content-center">
         {% for post in posts %}
         <div class="col-md-4">
           <div class="card-deck mt-4">
             <div class="card shadow mt-4" style="width: 20rem">
-              {% if post.image %}
-              <div class="inner">
-                <img
-                  class="card-img-top"
+              <div class="inner text-center">
+                {% if post.image %}
+                
+               <img
+                  class="card-img-top home-image-size"
                   src="{{post.image.url}}"
                   alt="Card image cap"
                 />
+                
+
+                {% else %}
+                <img
+                  class="card-img-top home-image-size "
+                  src="{% static '/logo/django.png' %}"
+                  alt="Card image cap"
+                />
+                {% endif %}
               </div>
-              {% else %}
-              <p></p>
-              {% endif %}
+
               <div class="card-body">
-                <h5 class="card-title">
+                <h5 class="card-title text-center">
                   <a
-                    class="badge badge-secondary"
+                    class="badge badge-secondary "
                     href="{% url 'artical_page' post.id %}"
                     class="card-link"
                     >{{post.title}}</a
@@ -44,35 +51,26 @@
     </div>
 
     <!--*************************top**articles****************************-->
-    <div class="col-md-3">
+    <div class="col-md-2 top-post-size">
       <p class="h3 mt-4">Top posts</p>
-
-      <div class="card mt-4">
-        <img class="card-img-top" src="..." alt="Card image cap" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural
-            lead-in to additional content. This content is a little bit longer.
-          </p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
-        </div>
+      {% for top_post in top_posts %}
+      <div class="card mt-4 ">
+       {% if post.image %}
+                <img
+                  class="card-img-top"
+                  src="{{post.image.url}}"
+                  alt="Card image cap"
+                />
+                {% else %}
+                <img
+                  class="card-img-top"
+                  src="{% static '/logo/django.png' %}"
+                  alt="Card image cap"
+                />
+                {% endif %}
+                   <a class='text-center' href="{% url 'artical_page' top_post.id %}">{{top_post.title}}</a>
       </div>
-      <div class="card mt-4">
-        <img class="card-img-top" src="..." alt="Card image cap" />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural
-            lead-in to additional content. This content is a little bit longer.
-          </p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

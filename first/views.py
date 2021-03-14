@@ -5,8 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.urls import reverse
+from django.db.models import Count
+from django.views.generic.edit import UpdateView
+from django.contrib import messages
+
 
 def home(request):
+    top_posts = Article.objects.annotate(like_count=Count('likes')).order_by('-like_count')[:3]
     search_query = request.GET.get('search', '')
     if search_query:
         posts = Article.objects.filter(
@@ -14,9 +19,9 @@ def home(request):
     else:
         posts = Article.objects.all().order_by('date_create')[::-1]
 
-    context = {'posts': posts}
+    context = {'posts': posts, 'top_posts':top_posts}
     return render(request, 'first/home.html', context)
-
+##############################Article############################################################
 
 def add_article(request):
     if request.method == "POST":
@@ -31,7 +36,7 @@ def add_article(request):
         context = {'form': form}
         return render(request, 'first/add_article.html', context)
 
-
+# article and comments page
 def artical_page(request, id):
     post = get_object_or_404(Article, id=id)
    # dom = post.likes.get(profile_id=request.user.profile.id)
@@ -58,6 +63,23 @@ def artical_page(request, id):
                    'form': form, 'likes':likes, 'liked':liked}
         return render(request, 'first/artical_page.html', context)
 
+def update_post(request, id):
+    post = Article.objects.get(id=id)
+    author = post.author
+    form = ArticleForm(instance=post)
+    if post.author == request.user.profile:
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=post)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('artical_page', args=[str(id)]))
+    context = {'form':form, 'author':author}
+    return render(request, 'first/update_post.html', context)
+
+
+
+
+
 
 def likes_post(request, pk):
     post = get_object_or_404(Article, id=request.POST.get('post_id'))
@@ -70,3 +92,4 @@ def likes_post(request, pk):
         post.likes.add(request.user.profile)
         liked=True
     return HttpResponseRedirect(reverse('artical_page', args=[str(pk)]))
+

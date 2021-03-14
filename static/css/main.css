@@ -23,3 +23,15 @@
 
   padding: 2px; /* Поля вокруг текста */
 }
+
+.home-image-size {
+	height: 250px;
+	width: 250px;
+   
+   
+}
+
+.top-post-size {
+	height: 150px;
+	width: 150px;
+}

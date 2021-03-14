@@ -12,7 +12,7 @@
   {% endif %}
   <p>{{post.body|safe}}</p>
   <p>{{post.author}}</p>
-
+   <a class="btn btn-danger" href="{% url 'update_post' post.pk %}">update_post</a>
   <form
           action="{% url 'likes_post'  post.pk %}"
           method="POST">
@@ -39,7 +39,7 @@
           </button>
          {% endif %}
       {% else %}
-
+    <i class="fas fa-thumbs-up "></i>
             {% endif %}
       {{post.total_likes}}
 
