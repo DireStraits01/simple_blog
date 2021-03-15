@@ -1,18 +1,23 @@
 {% extends 'first/base.html' %} {%block content %}
 
 
-<div class="container">
-  <h1>{{post.title}}</h1>
-  <p>{{post.date_create}}</p>
 
-  {% if post.image %}
-  <p><img src="{{post.image.url}}" width="700" /></p>
-  {% else %}
-  <p></p>
-  {% endif %}
-  <p>{{post.body|safe}}</p>
-  <p>{{post.author}}</p>
-   <a class="btn btn-danger" href="{% url 'update_post' post.pk %}">update_post</a>
+ <!-- ________________Content______________________-->
+<div class="container">
+
+  <div class="content">
+    <h1>{{post.title}}</h1>
+    <p>{{post.date_create}}</p>
+
+    {% if post.image %}
+    <p><img src="{{post.image.url}}" width="700" /></p>
+    {% else %}
+    {% endif %}
+      <p>{{post.body|safe}}</p>
+
+
+
+  <!-- ________________LIKE BUTTON______________________-->
   <form
           action="{% url 'likes_post'  post.pk %}"
           method="POST">
@@ -45,6 +50,43 @@
 
   </form>
 
+
+     <!-- ________________UPDATE AND DELETE BUTTONS______________________-->
+  
+      {% if request.user.profile == author %}
+     <div class="content btn">
+           <a class="btn btn-outline-dark btn-sm" href="{% url 'update_post' post.id %}">edit</a>
+           <button class="btn btn-outline-danger btn-sm btnDelete" >delete</button>
+    </div>      
+       <div class="modalPostDelete">
+
+         <!-- ________________MODAL WINDOW DELETE_____________________-->
+           <form action="{% url 'artical_page' post.id %}" method='POST' id='YES'>
+            {% csrf_token %}
+              <h5>
+               <strong> 
+                <p> 
+                  Are you sure you want to delete {{post.title}}?
+                </p>
+              </h5>
+            </strong>
+             
+             <input type="Submit" class="btn btn-danger btn-sm" name="btn" value="YES">
+              <a class="btn btn-dark btn-sm" href="{% url 'artical_page' post.id %}">NO</a>
+           </form>
+       </div>
+       <div class="modalPostDelete_bg"></div>
+   
+                       {% else %}
+                       {% endif %}
+  </div>
+
+
+
+
+
+
+ <!-- ________________Comments______________________-->
   <p>{% for comment in comments %}</p>
   <p>{{comment.date_post}}</p>
   <strong>
@@ -55,9 +97,12 @@
   {% endfor %}
 </div>
 
-<form action="" method="POST">
+
+
+ <!-- ________________Comment form______________________-->
+<form action="" method="POST" id="send comment">
   {% csrf_token %} {{form.as_p}}
-  <p><button class="btn btn-success" type="submit">send</button></p>
+  <input type="submit"  class="btn btn-success" name="btn" value="send comment">
 </form>
 
 {% endblock%}

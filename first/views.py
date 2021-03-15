@@ -6,8 +6,8 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.urls import reverse
 from django.db.models import Count
-from django.views.generic.edit import UpdateView
-from django.contrib import messages
+
+
 
 
 def home(request):
@@ -39,29 +39,33 @@ def add_article(request):
 # article and comments page
 def artical_page(request, id):
     post = get_object_or_404(Article, id=id)
-   # dom = post.likes.get(profile_id=request.user.profile.id)
+    author = post.author
     comments = post.comments.filter()
     likes = post.likes.filter()
-    if request.method == "POST":
-        # if request.user.is_authenticated:
+    if request.method == "POST" and request.POST.get('btn') == 'send comment':
         form = CommentForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.author = request.user.profile
             new_comment.post = post
             new_comment.save()
-
             return HttpResponseRedirect(str(id))
+    if request.method == "POST" and request.POST.get('btn') == 'YES':
+        post.delete()
+        return redirect('/')
     else:
         form = CommentForm()
-
         liked=False
         if  request.user.is_authenticated:
             if post.likes.filter(id=request.user.profile.id):
                 liked=True
         context = {'post': post, 'comments': comments,
-                   'form': form, 'likes':likes, 'liked':liked}
+                   'form': form, 'likes':likes, 'liked':liked,
+                    'author':author}
         return render(request, 'first/artical_page.html', context)
+
+
+
 
 def update_post(request, id):
     post = Article.objects.get(id=id)
@@ -78,9 +82,18 @@ def update_post(request, id):
 
 
 
+# def delete_post(request, id):
+#     post_d = Article.objects.get(id=id)
+#     if request.method == 'POST':
+#         post_d.delete()
+#         return redirect('add-article/')
+#     else:     
+#         context = {'post_d':post_d}    
+#         return render(request, 'first/artical_page.html')  
 
 
 
+##############################Likes############################################################
 def likes_post(request, pk):
     post = get_object_or_404(Article, id=request.POST.get('post_id'))
     liked = False
