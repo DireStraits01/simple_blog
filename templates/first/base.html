@@ -53,6 +53,8 @@
   <body class="bg-light">
     {% include 'first/navbar.html'%}
     <p>{% block content %} {% endblock %}</p>
+
+  
   <footer>{% include 'first/footer.html'%}</footer>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
@@ -64,9 +66,6 @@
       integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
       crossorigin="anonymous"
     ></script>
-    <div class="hidden-link">
-      <a class="nav-link" href="{% url 'admin' %}">.</a>
-    </div>
   
       <!-- JavaScript  -->
     <script src="{% static 'js/app.js' %}"></script>

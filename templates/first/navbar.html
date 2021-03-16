@@ -47,21 +47,22 @@
             aria-label="Search"
             name="search"
           />
-         <!-- <button class="btn btn-outline-success" type="submit">Search</button>-->
+         <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
     </div>
   </div>
 
   <div class="">
+
     {% if user.is_authenticated%}
-    <a class="navbar-brand" href="{% url 'yo_profile' %}">
+    <a class="navbar-brand" href="{% url 'profilePage' user.profile.id %}">
       <img
-        src="https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-31-512.png"
+        src="{{user.profile.avatar.url}}"
         alt=""
         width="50"
         height="50"
-        class="d-inline-block"
+        class="d-inline-block round-avatar"
       />
     </a>
 

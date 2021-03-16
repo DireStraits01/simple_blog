@@ -5,11 +5,19 @@
       <div class="row z-depth-3">
         <div class="col-sm-4 bg-info rounded-left">
           <div class="card-block text-center text-while">
-            <i class="fas fa-user-tie fa-7x mt-5"></i>
-            <h2 class="font-wieght-bold mt-4">{{user.username}}</h2>
-            {% for group in user.groups.filter %}
-            <p>{{ group }}</p>
-            {% endfor %}
+           <!-- <i class="fas fa-user-tie fa-7x mt-5"></i>-->
+               {% if request.user == user.profile %}
+           <img src="{{user.profile.avatar.url}}" alt="" width="300" class='card-img-top'>
+               {% else %}
+             <img src="{{profile.avatar.url}}" alt="" width="300" class='card-img-top'>   
+                 {% endif %}
+                 
+             {% if request.user == user.profile %}
+            <h2 class="font-wieght-bold mt-4">{{user.profile.user}}</h2>
+            {% else %}
+             <h2 class="font-wieght-bold mt-4">{{profile.user}}</h2>
+             {% endif %}
+
             <i class="far fa-edit fa-2x mb-4"></i>
             <div class="font-wieght-bold mt-4" class="logout">
               <a href="{% url 'logout' %}" type="button" class="btn btn-dark">
@@ -24,7 +32,7 @@
           <div class="row">
             <div class="col-sm-6">
               <p class="font-wieght-bold">Email:</p>
-              <h6 class="text-muted">{{user.email}}</h6>
+              <h6 class="text-muted">{{user.profile.email}}</h6>
             </div>
             <div class="col-sm-6">
               <p class="font-wieght-bold">Group:</p>

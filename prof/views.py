@@ -5,10 +5,13 @@ from django.contrib import messages
 from django.conf import settings
 from .models import Profile
 
-def yo_profile(request):
-    return render(request, 'prof/yo_profile.html')
 
+def profilePage(request, id):
+    profile = Profile.objects.get(id=id)
+    context = {'profile':profile}
+    return render(request, 'prof/profilePage.html', context )
 
+########______________authenticated___________________#########
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
